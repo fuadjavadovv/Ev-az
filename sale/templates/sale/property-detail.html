@@ -1,0 +1,93 @@
+{% extends 'layouts/layout.html' %}
+{% load static %}
+
+{% block meta %}
+  <meta name="description" content="{{property.info|truncatechars:150}}">
+  <meta property="og:title" content="{{property.title}}" />
+  <meta property="og:description" content="{{property.info|truncatechars:150}}" />
+  <meta property="og:url" content="{{request.get_full_path}}" />
+  <meta property="og:image" content="{{property.get_main_image.image.url}}" />
+{% endblock meta %}
+
+{% block title %}
+    <title>{{property.title}}</title>
+{% endblock title %}
+
+{% block main %}
+    <!-- Start Proerty header  -->
+
+  <section id="aa-property-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-property-header-inner">
+            <h2>{{property.title}}</h2>
+            <ol class="breadcrumb">
+            <li><a href="#">HOME</a></li>            
+            <li class="active">APPARTMENT TITLE</li>
+          </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  <!-- End Proerty header  -->
+
+  <!-- Start Properties  -->
+  <main id="aa-properties">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-8">
+          <div class="aa-properties-content">            
+            <!-- Start properties content body -->
+            <div class="aa-properties-details">
+             <div class="aa-properties-details-img">
+                {% for image in property.images.all %}
+                    <img src="{{image.image.url}}" alt="img">
+                {% endfor %}
+             </div>
+             <div class="aa-properties-info">
+               <h1>{{property.title}}</h1>
+               <span class="aa-price">{{property.price}} AZN</span>
+               <article>
+                 <p>{{property.info}}</p>
+               </article>
+               <time>{{property.created}}</time>
+               <h4>Propery Features</h4>
+               <ul>
+                 <li>4 Bedroom</li>
+                 <li>3 Baths</li>
+                 <li>Kitchen</li>
+                 <li>Air Condition</li>
+                 <li>Belcony</li>
+                 <li>Gym</li>
+                 <li>Garden</li>
+                 <li>CCTV</li>
+                 <li>Children Play Ground</li>
+                 <li>Comunity Center</li>
+                 <li>Security System</li>
+               </ul>
+               {% if property.video_id %}
+                    <h4>Property Video</h4>
+                    <iframe width="100%" height="480" src="https://www.youtube.com/embed/{{property.video_id}}" frameborder="0" allowfullscreen></iframe>
+               {% endif %}
+               <h4>Property Map</h4>
+               <iframe 
+  width="700" 
+  height="500" 
+  frameborder="0" 
+  scrolling="no" 
+  marginheight="0" 
+  marginwidth="0" 
+  src="https://maps.google.com/maps?q={{property.longitude}},{{property.lattitude}}&hl=es&z=14&amp;output=embed"
+ >
+ </iframe>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock main %}
